@@ -43,8 +43,7 @@ const verifyWalletSignature = (message, signature, walletAddress) => {
 // @route   POST /api/v1/auth/register
 // @desc    Register user with wallet
 // @access  Public
-router.post('/register', 
-  [
+router.post('/register', [
   body('walletAddress')
     .isLength({ min: 42, max: 42 })
     .withMessage('Invalid wallet address format'),
@@ -58,8 +57,7 @@ router.post('/register',
     .optional()
     .isEmail()
     .withMessage('Invalid email format')
-  ],
-  async (req, res) => {
+], async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -150,14 +148,12 @@ router.post('/register',
       data: null
     });
   }
-  }
-);
+});
 
 // @route   POST /api/v1/auth/login
 // @desc    Login user with wallet
 // @access  Public
-router.post('/login',
-  [
+router.post('/login', [
   body('walletAddress')
     .isLength({ min: 42, max: 42 })
     .withMessage('Invalid wallet address format'),
@@ -167,8 +163,7 @@ router.post('/login',
   body('message')
     .notEmpty()
     .withMessage('Message is required')
-  ],
-  async (req, res) => {
+], async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -298,19 +293,16 @@ router.post('/login',
       data: null
     });
   }
-  }
-);
+});
 
 // @route   POST /api/v1/auth/refresh
 // @desc    Refresh access token
 // @access  Public
-router.post('/refresh',
-  [
+router.post('/refresh', [
   body('refreshToken')
     .notEmpty()
     .withMessage('Refresh token is required')
-  ],
-  async (req, res) => {
+], async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -363,8 +355,7 @@ router.post('/refresh',
       data: null
     });
   }
-  }
-);
+});
 
 // @route   GET /api/v1/auth/profile
 // @desc    Get user profile
@@ -417,8 +408,7 @@ router.get('/profile', auth, async (req, res) => {
 // @route   PUT /api/v1/auth/profile
 // @desc    Update user profile
 // @access  Private
-router.put('/profile',
-  [
+router.put('/profile', [
   auth,
   body('email')
     .optional()
@@ -432,8 +422,7 @@ router.put('/profile',
     .optional()
     .isString()
     .withMessage('Invalid timezone')
-  ],
-  async (req, res) => {
+], async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -498,8 +487,7 @@ router.put('/profile',
       data: null
     });
   }
-  }
-);
+});
 
 // @route   POST /api/v1/auth/logout
 // @desc    Logout user
@@ -585,14 +573,12 @@ router.post('/enable-2fa', auth, async (req, res) => {
 // @route   POST /api/v1/auth/verify-2fa
 // @desc    Verify and enable two-factor authentication
 // @access  Private
-router.post('/verify-2fa',
-  [
+router.post('/verify-2fa', [
   auth,
   body('token')
     .isLength({ min: 6, max: 6 })
     .withMessage('Invalid 2FA token format')
-  ],
-  async (req, res) => {
+], async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -650,20 +636,17 @@ router.post('/verify-2fa',
       data: null
     });
   }
-  }
-);
+});
 
 // @route   POST /api/v1/auth/disable-2fa
 // @desc    Disable two-factor authentication
 // @access  Private
-router.post('/disable-2fa',
-  [
+router.post('/disable-2fa', [
   auth,
   body('token')
     .isLength({ min: 6, max: 6 })
     .withMessage('Invalid 2FA token format')
-  ],
-  async (req, res) => {
+], async (req, res) => {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -722,7 +705,6 @@ router.post('/disable-2fa',
       data: null
     });
   }
-  }
-);
+});
 
 module.exports = router;

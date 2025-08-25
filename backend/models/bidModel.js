@@ -221,8 +221,8 @@ bidSchema.methods.markAsWon = function() {
   return Promise.resolve(this);
 };
 
-// Method to refund bid
-bidSchema.methods.refund = function(reason, transactionHash) {
+// Method to refund bid - RENAMED to processRefund
+bidSchema.methods.processRefund = function(reason, transactionHash) {
   this.refund.isRefunded = true;
   this.refund.refundAmount = this.amount;
   this.refund.refundTransactionHash = transactionHash;
